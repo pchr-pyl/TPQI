@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายงานผลการวิเคราะห์ข้อมูล (TPQI Final Logo)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f8fafc;
+        }
+        /* TPQI Brand Colors */
+        :root {
+            --tpqi-blue: #1e3a8a;
+            --tpqi-red: #dc2626;
+            --tpqi-gold: #d97706;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e5e7eb;
+        }
+        .section-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--tpqi-blue);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+        .section-marker {
+            width: 8px;
+            height: 28px;
+            border-radius: 4px;
+            background-color: var(--tpqi-red);
+        }
+        /* Custom Scrollbar */
+        .chart-scroll-container {
+            position: relative;
+            overflow-y: auto;
+            padding-right: 20px;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        
+        .quote-card {
+            border-left: 4px solid var(--tpqi-blue);
+            background-color: #eff6ff;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            font-style: italic;
+            color: #1e3a8a;
+            font-size: 0.9rem;
+        }
+        .nav-shadow {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        
+        /* Custom Header Styles */
+        .header-bg {
+            background-color: white;
+            border-bottom: 1px solid #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NEW HEADER with Custom Logo -->
+    <header class="header-bg sticky top-0 z-50 nav-shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24"> 
+                
+                <!-- Left: Logo & Organization Name -->
+                <div class="flex items-center gap-4">
+                    <!-- Using the specific image URL provided -->
+                    <img src="https://i.postimg.cc/47qQ1ZWz/logo-tpqi.png" alt="TPQI Logo" class="h-16 w-auto object-contain">
+                    
+                    <div class="flex flex-col justify-center">
+                        <h1 class="text-lg font-bold text-blue-900 leading-tight">สถาบันคุณวุฒิวิชาชีพ (องค์การมหาชน)</h1>
+                        <p class="text-xs text-gray-500">Thailand Professional Qualification Institute (Public Organization)</p>
+                    </div>
+                </div>
+
+                <!-- Right: Report Title Section -->
+                <div class="hidden md:flex flex-col items-end text-right border-l-2 border-gray-200 pl-6">
+                    <h2 class="text-xl font-bold text-gray-700 tracking-tight">Employee Experience Report</h2>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-xs bg-blue-50 text-blue-800 px-2 py-1 rounded font-semibold border border-blue-100 uppercase tracking-wide">
+                            Voice of Growth & Well-Being
+                        </span>
+                        <span class="text-xs text-gray-400 font-medium">Last Updated: Nov 2025</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Decorative Bottom Border Gradient -->
+        <div class="h-1 bg-gradient-to-r from-blue-900 via-red-600 to-yellow-500 w-full"></div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-10">
+
+        <!-- =========================================
+             PART 1: GENERAL INFORMATION (DEMOGRAPHICS)
+             ========================================= -->
+        <section>
+            <div class="section-title">
+                <div class="section-marker"></div>
+                <h2>1. ข้อมูลทั่วไป (General Information)</h2>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div class="card p-5 flex flex-col justify-between border-l-4 border-blue-900">
+                    <div class="text-gray-500 text-xs font-bold uppercase tracking-wider">ผู้ตอบแบบสอบถาม</div>
+                    <div class="flex items-end gap-2 mt-2">
+                        <span class="text-3xl font-bold text-blue-900" id="stat-n">53</span>
+                        <span class="text-xs text-white font-medium mb-1 bg-blue-900 px-2 py-0.5 rounded-full">100%</span>
+                    </div>
+                </div>
+                <div class="card p-5 flex flex-col justify-between border-l-4 border-blue-700">
+                    <div class="text-gray-500 text-xs font-bold uppercase tracking-wider">Well-Being Avg.</div>
+                    <div class="flex items-end gap-2 mt-2">
+                        <span class="text-3xl font-bold text-blue-700">4.23</span>
+                        <span class="text-xs text-gray-400 mb-1">/ 5.00</span>
+                    </div>
+                </div>
+                <div class="card p-5 flex flex-col justify-between border-l-4 border-green-600">
+                    <div class="text-gray-500 text-xs font-bold uppercase tracking-wider">Top Factor</div>
+                    <div class="flex items-end gap-2 mt-2">
+                        <span class="text-3xl font-bold text-green-600">92%</span>
+                        <span class="text-xs text-gray-500 mb-1 truncate w-20">สวัสดิการ</span>
+                    </div>
+                </div>
+                <div class="card p-5 flex flex-col justify-between border-l-4 border-red-600">
+                    <div class="text-gray-500 text-xs font-bold uppercase tracking-wider">Critical Point</div>
+                    <div class="flex items-end gap-2 mt-2">
+                        <span class="text-3xl font-bold text-red-600">28%</span>
+                        <span class="text-xs text-gray-500 mb-1 truncate w-20">โอกาสเติบโต</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Demographics Charts Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Row 1 Left: Age -->
+                <div class="card p-5">
+                    <h4 class="text-sm font-bold text-blue-900 mb-4 text-center border-b pb-2 border-gray-100">ช่วงอายุ (Age)</h4>
+                    <div class="h-48"><canvas id="chartAge"></canvas></div>
+                </div>
+                <!-- Row 1 Right: Tenure -->
+                <div class="card p-5">
+                    <h4 class="text-sm font-bold text-blue-900 mb-4 text-center border-b pb-2 border-gray-100">อายุงาน (Tenure)</h4>
+                    <div class="h-48"><canvas id="chartTenure"></canvas></div>
+                </div>
+                <!-- Row 2 Left: Gender -->
+                <div class="card p-5">
+                    <h4 class="text-sm font-bold text-blue-900 mb-4 text-center border-b pb-2 border-gray-100">เพศ (Gender)</h4>
+                    <div class="h-48"><canvas id="chartGender"></canvas></div>
+                </div>
+                <!-- Row 2 Right: Department -->
+                <div class="card p-5 relative">
+                    <h4 class="text-sm font-bold text-blue-900 mb-4 text-center border-b pb-2 border-gray-100">สัดส่วนแยกรายสำนัก (Department)</h4>
+                    <div class="h-64 flex justify-center items-center">
+                        <canvas id="chartDept"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================
+             PART 2: QUANTITATIVE DATA
+             ========================================= -->
+        <section>
+            <div class="section-title">
+                <div class="section-marker bg-blue-800"></div>
+                <h2>2. ข้อมูล 20 ปัจจัย และ 38 ปัจจัย (Quantitative Data)</h2>
+            </div>
+
+            <div class="card overflow-hidden">
+                <!-- Tabs -->
+                <div class="flex border-b border-gray-200 bg-gray-50">
+                    <button onclick="switchTab('wb')" id="tab-wb" class="flex-1 py-4 text-sm font-bold text-blue-900 border-b-4 border-blue-900 bg-white transition-all">
+                        <i class="fas fa-heartbeat mr-2"></i> Well-Being (20 ข้อ)
+                    </button>
+                    <button onclick="switchTab('ex')" id="tab-ex" class="flex-1 py-4 text-sm font-medium text-gray-500 hover:text-blue-900 hover:bg-gray-100 transition-all">
+                        <i class="fas fa-tasks mr-2"></i> Ex-Canvas (38 ปัจจัย)
+                    </button>
+                </div>
+
+                <!-- Content: Well-Being -->
+                <div id="content-wb" class="p-6 block">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-blue-900">คะแนนเฉลี่ยความสุขรายข้อ</h3>
+                            <p class="text-xs text-gray-500">เรียงจากมากไปน้อย (เต็ม 5.00)</p>
+                        </div>
+                        <div class="text-right hidden sm:block">
+                            <span class="text-xs bg-green-50 text-green-700 px-2 py-1 rounded border border-green-200">● สูง (>4.3)</span>
+                            <span class="text-xs bg-red-50 text-red-700 px-2 py-1 rounded border border-red-200">● ต่ำ (<3.9)</span>
+                        </div>
+                    </div>
+                    <div class="chart-scroll-container" style="height: 800px;">
+                        <div style="position: relative; height: 1000px; width: 100%;">
+                            <canvas id="chartWB"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content: Ex-Canvas -->
+                <div id="content-ex" class="p-6 hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-blue-900">สัดส่วนสิ่งที่พนักงานเลือก (%)</h3>
+                            <p class="text-xs text-gray-500">เรียงจากมากไปน้อย (สิ่งที่องค์กรมีอยู่จริง)</p>
+                        </div>
+                    </div>
+                    <div class="chart-scroll-container" style="height: 800px;">
+                        <div style="position: relative; height: 1600px; width: 100%;">
+                            <canvas id="chartEx"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================
+             PART 3: DETAILED VOICE ANALYSIS
+             ========================================= -->
+        <section>
+            <div class="section-title">
+                <div class="section-marker bg-green-600"></div>
+                <h2>3. เจาะลึกเสียงสะท้อน (Detailed Voice Analysis)</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Theme 1 -->
+                <div class="card border-t-4 border-blue-800 p-6">
+                    <h3 class="text-lg font-bold text-blue-900 mb-4 flex items-center">
+                        <span class="bg-blue-100 text-blue-900 p-2 rounded-full mr-3 w-10 h-10 flex items-center justify-center"><i class="fas fa-rocket"></i></span>
+                        โอกาสเติบโต & ความก้าวหน้า
+                    </h3>
+                    <ul class="list-disc list-inside text-sm text-gray-600 space-y-2 mb-4">
+                        <li>ขาด Career Path ที่ชัดเจน มองไม่เห็นอนาคต</li>
+                        <li>ต้องการ Mentor ระบบพี่เลี้ยงสอนงาน</li>
+                        <li>งานซ้ำซ้อน อยากได้ AI/Tech มาช่วยลดงาน</li>
+                    </ul>
+                    <div class="quote-card border-l-4 border-blue-900 bg-blue-50 text-blue-900">
+                        "อยากให้มีการอบรมการนำ AI ไปใช้... และวางแผนเส้นทางความก้าวหน้าในอาชีพ (Career Path) ให้ชัดเจน"
+                    </div>
+                </div>
+
+                <!-- Theme 2 -->
+                <div class="card border-t-4 border-green-600 p-6">
+                    <h3 class="text-lg font-bold text-green-800 mb-4 flex items-center">
+                        <span class="bg-green-100 text-green-800 p-2 rounded-full mr-3 w-10 h-10 flex items-center justify-center"><i class="fas fa-coffee"></i></span>
+                        สภาพแวดล้อม & บรรยากาศ
+                    </h3>
+                    <ul class="list-disc list-inside text-sm text-gray-600 space-y-2 mb-4">
+                        <li>ต้องการพื้นที่ผ่อนคลาย (Relax Zone)</li>
+                        <li>อุปกรณ์สำนักงานไม่ Ergonomics</li>
+                        <li>บรรยากาศตึงเครียดในบางแผนก</li>
+                    </ul>
+                    <div class="quote-card border-l-4 border-green-600 bg-green-50 text-green-800">
+                        "สร้างพื้นที่และเวลาสำหรับการผ่อนคลาย... เพื่อลดความเครียดและภาวะหมดไฟ"
+                    </div>
+                </div>
+
+                <!-- Theme 3 -->
+                <div class="card border-t-4 border-yellow-500 p-6">
+                    <h3 class="text-lg font-bold text-yellow-700 mb-4 flex items-center">
+                        <span class="bg-yellow-100 text-yellow-700 p-2 rounded-full mr-3 w-10 h-10 flex items-center justify-center"><i class="fas fa-coins"></i></span>
+                        ความมั่นคง & การเงิน
+                    </h3>
+                    <ul class="list-disc list-inside text-sm text-gray-600 space-y-2 mb-4">
+                        <li>กังวลเรื่องหนี้สินและเงินออม</li>
+                        <li>ต้องการความรู้การลงทุน (ตราสารหนี้/กองทุน)</li>
+                        <li>อยากมีอาชีพหลังเกษียณรองรับ</li>
+                    </ul>
+                    <div class="quote-card border-l-4 border-yellow-500 bg-yellow-50 text-yellow-800">
+                        "จัดให้มีการให้คำปรึกษาด้านการลงทุน... และการวางแผนรายได้หลังเกษียณ"
+                    </div>
+                </div>
+
+                <!-- Theme 4 -->
+                <div class="card border-t-4 border-red-500 p-6">
+                    <h3 class="text-lg font-bold text-red-700 mb-4 flex items-center">
+                        <span class="bg-red-100 text-red-700 p-2 rounded-full mr-3 w-10 h-10 flex items-center justify-center"><i class="fas fa-heart"></i></span>
+                        สุขภาวะทางใจ & กาย
+                    </h3>
+                    <ul class="list-disc list-inside text-sm text-gray-600 space-y-2 mb-4">
+                        <li>ต้องการที่ปรึกษาทางใจ (Psychologist)</li>
+                        <li>Flexible Hours / Hybrid Work ช่วยได้มาก</li>
+                        <li>ตรวจสุขภาพเชิงลึกสำหรับคนทำงานหนัก</li>
+                    </ul>
+                    <div class="quote-card border-l-4 border-red-500 bg-red-50 text-red-800">
+                        "อยากให้องค์กรจัดให้มีนักจิตแพทย์... มาช่วยให้คำแนะนำ ปรึกษาเกี่ยวกับการจัดการอารมณ์"
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strategic Table -->
+            <div class="card mt-8 p-6">
+                <h3 class="text-lg font-bold text-blue-900 mb-4 flex items-center">
+                    <i class="fas fa-chess-board mr-2"></i> ข้อเสนอแนะเชิงกลยุทธ์ (Strategic Recommendations)
+                </h3>
+                <div class="overflow-x-auto rounded-lg border border-gray-200">
+                    <table class="min-w-full text-sm text-left text-gray-600">
+                        <thead class="text-xs text-white uppercase bg-blue-900">
+                            <tr>
+                                <th class="px-6 py-3">กลุ่มเป้าหมาย</th>
+                                <th class="px-6 py-3">ปัญหาหลัก (Pain Point)</th>
+                                <th class="px-6 py-3">ทางออก (Solution)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr class="bg-white hover:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-green-600">New Gen (0-2 ปี)</td>
+                                <td class="px-6 py-4">มองไม่เห็นอนาคต, ขาดคนสอนงาน</td>
+                                <td class="px-6 py-4">ทำ Career Roadmap ให้ชัด, ระบบ Mentorship</td>
+                            </tr>
+                            <tr class="bg-white hover:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-blue-600">Core Team (2-10 ปี)</td>
+                                <td class="px-6 py-4">งานล้น, Burnout, งานซ้ำซ้อน</td>
+                                <td class="px-6 py-4">นำ AI มาลดงาน, ปรับปรุงพื้นที่พักผ่อน</td>
+                            </tr>
+                            <tr class="bg-white hover:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-orange-600">Retiree (10+ ปี)</td>
+                                <td class="px-6 py-4">กังวลหนี้สิน, สุขภาพ, หลังเกษียณ</td>
+                                <td class="px-6 py-4">Workshop วางแผนการเงิน, จ้างงานต่อ (Advisor)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center text-gray-400 text-sm mt-12 border-t pt-6 pb-6">
+            <p>© 2025 Thailand Professional Qualification Institute (Public Organization). Generated by Gemini.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        Chart.register(ChartDataLabels);
+
+        // --- 1. DATASETS (Theme Colors Updated) ---
+        // Using TPQI Theme: Blue, Red, Gold, Grey
+        const tpqiColors = {
+            blue: '#1e3a8a',
+            lightBlue: '#60a5fa',
+            red: '#dc2626',
+            green: '#16a34a',
+            gold: '#d97706',
+            grey: '#9ca3af'
+        };
+        
+        const wbDataRaw = [
+            { l: "เข้าถึงการรักษาและฟื้นฟูสุขภาพ", v: 4.55 },
+            { l: "ยอมรับความแตกต่างระหว่างบุคคล", v: 4.42 },
+            { l: "ตระหนักรู้อารมณ์ตนเอง", v: 4.42 },
+            { l: "จัดการการเงินได้ด้วยตนเอง", v: 4.36 },
+            { l: "มีมิตรภาพที่ดีในที่ทำงาน", v: 4.34 },
+            { l: "จัดการความขัดแย้งได้", v: 4.34 },
+            { l: "มีกำลังแรงกายทำสิ่งต่างๆ", v: 4.34 },
+            { l: "รู้วิธีจัดการสุขภาพตนเอง", v: 4.28 },
+            { l: "สุขภาวะทางปัญญา", v: 4.20 },
+            { l: "ความสามารถเป็นที่ต้องการ", v: 4.17 },
+            { l: "มีโอกาสพัฒนาตนเอง", v: 4.17 },
+            { l: "เป็นที่ยอมรับในสังคม", v: 4.17 },
+            { l: "พึงพอใจในงานที่ทำ", v: 4.15 },
+            { l: "ความผูกพันองค์กร", v: 4.15 },
+            { l: "รับมือวิกฤติได้ดี", v: 4.10 },
+            { l: "ฟื้นตัวจากอ่อนเพลียได้ดี", v: 4.06 },
+            { l: "ความมั่นคงในชีวิต", v: 4.05 },
+            { l: "ไม่ตื่นตระหนก/ใจเย็น", v: 4.00 },
+            { l: "มีเงินเก็บสำหรับอนาคต", v: 3.90 },
+            { l: "บรรยากาศไม่ตึงเครียด", v: 3.85 },
+            { l: "บรรลุเป้าหมายการเงิน", v: 3.81 }
+        ];
+
+        const exDataRaw = [
+            { l: "ได้รับสวัสดิการที่ดี", v: 92.45 },
+            { l: "ภาระหน้าที่ชัดเจน", v: 88.68 },
+            { l: "รับผิดชอบต่อตนเอง/ครอบครัว", v: 88.68 },
+            { l: "รับผิดชอบต่อสังคม", v: 86.79 },
+            { l: "มีจริตตรงกับงาน", v: 83.02 },
+            { l: "ใช้ความรู้ความสามารถ", v: 81.13 },
+            { l: "เพื่อนร่วมงานสนับสนุน", v: 79.25 },
+            { l: "สถานที่ทำงานน่าอยู่", v: 79.25 },
+            { l: "มีความสุขใจที่เป็นบุคลากร", v: 75.47 },
+            { l: "สุขภาพร่างกายแข็งแรง", v: 75.47 },
+            { l: "หัวหน้าดี", v: 75.00 },
+            { l: "งานมีคุณค่า", v: 73.58 },
+            { l: "รับผิดชอบสังคม (General)", v: 72.00 },
+            { l: "งานมั่นคง", v: 71.70 },
+            { l: "ผู้นำมีวิสัยทัศน์", v: 70.00 },
+            { l: "รับผิดชอบตนเอง (General)", v: 70.00 },
+            { l: "ผลงานองค์กร", v: 69.81 },
+            { l: "มีความพยายาม", v: 69.81 },
+            { l: "โอกาสพัฒนาตนเอง", v: 69.81 },
+            { l: "มีวินัย", v: 68.00 },
+            { l: "ใส่ใจพนักงาน", v: 68.00 },
+            { l: "ผู้นำเป็นแบบอย่าง", v: 67.92 },
+            { l: "เติบโตต่อเนื่อง", v: 65.00 },
+            { l: "บรรยากาศเป็นมิตร", v: 65.00 },
+            { l: "มีจริตตรงกับองค์กร", v: 64.15 },
+            { l: "ได้ทำงานที่ชอบ", v: 64.15 },
+            { l: "มีระบบงานที่ดี", v: 60.38 },
+            { l: "อิสระเลือกวิธีทำงาน", v: 60.38 },
+            { l: "ความคาดหวังองค์กร", v: 58.49 },
+            { l: "ปลอดอบายมุข", v: 58.49 },
+            { l: "อุปกรณ์พร้อม", v: 58.00 },
+            { l: "สุขภาพจิตแข็งแรง", v: 56.60 },
+            { l: "สมดุลชีวิต (Work-Life)", v: 55.00 },
+            { l: "อำนาจตัดสินใจ", v: 50.94 },
+            { l: "ห่างไกลยาเสพติด", v: 49.06 },
+            { l: "นอนหลับดี", v: 45.28 },
+            { l: "อาหารถูกสุขลักษณะ", v: 39.62 },
+            { l: "ค่าตอบแทนเหมาะสม", v: 37.74 },
+            { l: "โอกาสเติบโตในอาชีพ", v: 28.30 }
+        ];
+
+        const deptData = [
+            { name: 'บริหารกลาง (บร.)', count: 8 },
+            { name: 'รับรองสมรรถนะ (รค.)', count: 8 },
+            { name: 'มาตรฐานอาชีพ (มค.)', count: 7 },
+            { name: 'ส่งเสริมสถานฯ (สป.)', count: 6 },
+            { name: 'ส่งเสริมการเรียนรู้ (สส.)', count: 6 },
+            { name: 'เทคโนโลยีฯ (ทส.)', count: 5 },
+            { name: 'สื่อสารองค์กร (สค.)', count: 5 },
+            { name: 'ทรัพยากรบุคคล (บค)', count: 5 },
+            { name: 'นโยบายยุทธศาสตร์ (นผ.)', count: 3 }
+        ];
+
+        // --- 2. COMMON CHART OPTIONS ---
+        const barOptions = {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                datalabels: {
+                    color: tpqiColors.blue,
+                    anchor: 'end',
+                    align: 'right',
+                    offset: 4,
+                    clip: false, 
+                    font: { weight: 'bold', size: 11 }
+                }
+            },
+            layout: {
+                padding: {
+                    right: 80, left: 0
+                }
+            },
+            scales: {
+                x: { grid: { color: '#f1f5f9' } },
+                y: { 
+                    grid: { display: false },
+                    ticks: { autoSkip: false, font: { size: 12, family: 'Sarabun' }, color: '#1e293b' }
+                }
+            }
+        };
+
+        // --- 3. INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Well-Being Chart
+            const ctxWB = document.getElementById('chartWB').getContext('2d');
+            const optionsWB = JSON.parse(JSON.stringify(barOptions));
+            optionsWB.scales.x.min = 3.0;
+            optionsWB.scales.x.max = 5.0;
+            optionsWB.plugins.datalabels.formatter = v => v.toFixed(2);
+
+            new Chart(ctxWB, {
+                type: 'bar',
+                data: {
+                    labels: wbDataRaw.map(d => d.l),
+                    datasets: [{
+                        data: wbDataRaw.map(d => d.v),
+                        // Theme: High=Green, Med=Blue, Low=Red
+                        backgroundColor: wbDataRaw.map(d => d.v >= 4.3 ? tpqiColors.green : (d.v <= 3.9 ? tpqiColors.red : tpqiColors.blue)),
+                        borderRadius: 4,
+                        barPercentage: 0.65
+                    }]
+                },
+                options: optionsWB
+            });
+
+            // 2. Ex-Canvas Chart
+            const ctxEx = document.getElementById('chartEx').getContext('2d');
+            const optionsEx = JSON.parse(JSON.stringify(barOptions));
+            optionsEx.scales.x.max = 100;
+            optionsEx.plugins.datalabels.formatter = v => v + '%';
+
+            new Chart(ctxEx, {
+                type: 'bar',
+                data: {
+                    labels: exDataRaw.map(d => d.l),
+                    datasets: [{
+                        data: exDataRaw.map(d => d.v),
+                        // Theme: High=Green, Low=Red, Med=Gold
+                        backgroundColor: exDataRaw.map(d => d.v > 80 ? tpqiColors.green : (d.v < 40 ? tpqiColors.red : tpqiColors.gold)),
+                        borderRadius: 4,
+                        barPercentage: 0.7
+                    }]
+                },
+                options: optionsEx
+            });
+
+            // 3. Demographics (Clean Look: Percent Only, Tooltip Count)
+            
+            const tooltipCallback = {
+                callbacks: {
+                    label: function(context) {
+                        let label = context.label || '';
+                        if (label) label += ': ';
+                        let value = context.raw;
+                        return label + value + ' คน';
+                    }
+                }
+            };
+
+            const percentFormatter = (value, ctx) => {
+                let sum = 0;
+                let dataArr = ctx.chart.data.datasets[0].data;
+                dataArr.map(data => { sum += data; });
+                let percentage = (value * 100 / sum).toFixed(1) + "%";
+                return percentage; 
+            };
+
+            // Theme Colors for Donuts
+            const ageColors = ['#93c5fd', '#2563eb', '#1e3a8a']; // Light Blue to Dark Blue
+            const tenureColors = ['#a5b4fc', '#6366f1', '#4338ca']; // Indigo shades
+            const genderColors = ['#fca5a5', '#60a5fa', '#d8b4fe', '#d1d5db']; // Red, Blue, Purple, Grey
+
+            renderDonut('chartAge', ['20-28 ปี', '29-43 ปี', '44-58 ปี'], [1, 32, 20], ageColors, percentFormatter, tooltipCallback);
+            renderDonut('chartTenure', ['6 เดือน - 2 ปี', '2 - 10 ปี', '10 - 20 ปี'], [5, 34, 14], tenureColors, percentFormatter, tooltipCallback);
+            renderDonut('chartGender', ['หญิง', 'ชาย', 'LGBTQ+', 'N/A'], [30, 18, 1, 4], genderColors, percentFormatter, tooltipCallback);
+            
+            // Dept Chart (Pie Chart) - Theme Colors
+            new Chart(document.getElementById('chartDept').getContext('2d'), {
+                type: 'pie',
+                data: {
+                    labels: deptData.map(d => d.name),
+                    datasets: [{ 
+                        data: deptData.map(d => d.count), 
+                        // Professional Corporate Palette
+                        backgroundColor: [
+                            '#1e3a8a', '#1d4ed8', '#2563eb', '#3b82f6', '#60a5fa',
+                            '#93c5fd', '#bfdbfe', '#dbeafe', '#eff6ff'
+                        ],
+                        borderWidth: 1,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true, 
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { position: 'right', labels: { boxWidth: 12, font: { size: 11, family: 'Sarabun' } } }, 
+                        datalabels: { 
+                            color: 'white', 
+                            font: { weight: 'bold', size: 10 }, 
+                            formatter: percentFormatter,
+                            display: 'auto' 
+                        },
+                        tooltip: tooltipCallback.callbacks ? { callbacks: tooltipCallback.callbacks } : {}
+                    }
+                }
+            });
+        });
+
+        function renderDonut(id, labels, data, colors, formatter, tooltipConfig) {
+            new Chart(document.getElementById(id).getContext('2d'), {
+                type: 'doughnut',
+                data: { labels: labels, datasets: [{ data: data, backgroundColor: colors, borderWidth: 2, borderColor: '#fff' }] },
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { position: 'right', labels:{boxWidth:10, font:{size:11, family: 'Sarabun'}} }, 
+                        datalabels: { 
+                            color: 'white', 
+                            font:{weight:'bold', size: 10}, 
+                            formatter: formatter 
+                        },
+                        tooltip: tooltipConfig.callbacks ? { callbacks: tooltipConfig.callbacks } : {}
+                    }, 
+                    cutout: '65%' 
+                }
+            });
+        }
+
+        function switchTab(tab) {
+            const contentWb = document.getElementById('content-wb');
+            const contentEx = document.getElementById('content-ex');
+            const btnWb = document.getElementById('tab-wb');
+            const btnEx = document.getElementById('tab-ex');
+
+            if(tab === 'wb') {
+                contentWb.classList.remove('hidden'); contentEx.classList.add('hidden');
+                btnWb.className = "flex-1 py-4 text-sm font-bold text-blue-900 border-b-4 border-blue-900 bg-white transition-all";
+                btnEx.className = "flex-1 py-4 text-sm font-medium text-gray-500 hover:text-blue-900 hover:bg-gray-100 transition-all";
+            } else {
+                contentWb.classList.add('hidden'); contentEx.classList.remove('hidden');
+                btnEx.className = "flex-1 py-4 text-sm font-bold text-blue-900 border-b-4 border-blue-900 bg-white transition-all";
+                btnWb.className = "flex-1 py-4 text-sm font-medium text-gray-500 hover:text-blue-900 hover:bg-gray-100 transition-all";
+            }
+        }
+    </script>
+</body>
+</html>
