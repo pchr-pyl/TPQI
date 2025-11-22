@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>รายงานผลการวิเคราะห์ข้อมูล (TPQI Final Logo)</title>
+    <title>รายงานผลการวิเคราะห์ข้อมูล (5 Groups Layout)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
@@ -47,7 +47,7 @@
         .chart-scroll-container {
             position: relative;
             overflow-y: auto;
-            padding-right: 20px;
+            padding-right: 10px;
         }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
@@ -67,7 +67,6 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
         }
         
-        /* Custom Header Styles */
         .header-bg {
             background-color: white;
             border-bottom: 1px solid #e5e7eb;
@@ -76,23 +75,17 @@
 </head>
 <body>
 
-    <!-- NEW HEADER with Custom Logo -->
+    <!-- NEW HEADER -->
     <header class="header-bg sticky top-0 z-50 nav-shadow">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-24"> 
-                
-                <!-- Left: Logo & Organization Name -->
                 <div class="flex items-center gap-4">
-                    <!-- Using the specific image URL provided -->
                     <img src="https://i.postimg.cc/47qQ1ZWz/logo-tpqi.png" alt="TPQI Logo" class="h-16 w-auto object-contain">
-                    
                     <div class="flex flex-col justify-center">
                         <h1 class="text-lg font-bold text-blue-900 leading-tight">สถาบันคุณวุฒิวิชาชีพ (องค์การมหาชน)</h1>
                         <p class="text-xs text-gray-500">Thailand Professional Qualification Institute (Public Organization)</p>
                     </div>
                 </div>
-
-                <!-- Right: Report Title Section -->
                 <div class="hidden md:flex flex-col items-end text-right border-l-2 border-gray-200 pl-6">
                     <h2 class="text-xl font-bold text-gray-700 tracking-tight">Employee Experience Report</h2>
                     <div class="flex items-center gap-2 mt-1">
@@ -102,25 +95,19 @@
                         <span class="text-xs text-gray-400 font-medium">Last Updated: Nov 2025</span>
                     </div>
                 </div>
-
             </div>
         </div>
-        <!-- Decorative Bottom Border Gradient -->
         <div class="h-1 bg-gradient-to-r from-blue-900 via-red-600 to-yellow-500 w-full"></div>
     </header>
 
     <main class="max-w-7xl mx-auto px-4 py-8 space-y-10">
 
-        <!-- =========================================
-             PART 1: GENERAL INFORMATION (DEMOGRAPHICS)
-             ========================================= -->
+        <!-- 1. GENERAL INFORMATION -->
         <section>
             <div class="section-title">
                 <div class="section-marker"></div>
                 <h2>1. ข้อมูลทั่วไป (General Information)</h2>
             </div>
-
-            <!-- Summary Cards -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 <div class="card p-5 flex flex-col justify-between border-l-4 border-blue-900">
                     <div class="text-gray-500 text-xs font-bold uppercase tracking-wider">ผู้ตอบแบบสอบถาม</div>
@@ -151,25 +138,19 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Demographics Charts Grid -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Row 1 Left: Age -->
                 <div class="card p-5">
                     <h4 class="text-sm font-bold text-blue-900 mb-4 text-center border-b pb-2 border-gray-100">ช่วงอายุ (Age)</h4>
                     <div class="h-48"><canvas id="chartAge"></canvas></div>
                 </div>
-                <!-- Row 1 Right: Tenure -->
                 <div class="card p-5">
                     <h4 class="text-sm font-bold text-blue-900 mb-4 text-center border-b pb-2 border-gray-100">อายุงาน (Tenure)</h4>
                     <div class="h-48"><canvas id="chartTenure"></canvas></div>
                 </div>
-                <!-- Row 2 Left: Gender -->
                 <div class="card p-5">
                     <h4 class="text-sm font-bold text-blue-900 mb-4 text-center border-b pb-2 border-gray-100">เพศ (Gender)</h4>
                     <div class="h-48"><canvas id="chartGender"></canvas></div>
                 </div>
-                <!-- Row 2 Right: Department -->
                 <div class="card p-5 relative">
                     <h4 class="text-sm font-bold text-blue-900 mb-4 text-center border-b pb-2 border-gray-100">สัดส่วนแยกรายสำนัก (Department)</h4>
                     <div class="h-64 flex justify-center items-center">
@@ -179,9 +160,7 @@
             </div>
         </section>
 
-        <!-- =========================================
-             PART 2: QUANTITATIVE DATA
-             ========================================= -->
+        <!-- 2. QUANTITATIVE DATA (WELL-BEING & EX-CANVAS) -->
         <section>
             <div class="section-title">
                 <div class="section-marker bg-blue-800"></div>
@@ -189,7 +168,6 @@
             </div>
 
             <div class="card overflow-hidden">
-                <!-- Tabs -->
                 <div class="flex border-b border-gray-200 bg-gray-50">
                     <button onclick="switchTab('wb')" id="tab-wb" class="flex-1 py-4 text-sm font-bold text-blue-900 border-b-4 border-blue-900 bg-white transition-all">
                         <i class="fas fa-heartbeat mr-2"></i> Well-Being (20 ข้อ)
@@ -199,26 +177,68 @@
                     </button>
                 </div>
 
-                <!-- Content: Well-Being -->
-                <div id="content-wb" class="p-6 block">
+                <!-- CONTENT 1: WELL-BEING (5 GROUPS LAYOUT) -->
+                <div id="content-wb" class="p-6 block bg-gray-50">
                     <div class="flex justify-between items-center mb-6">
-                        <div>
-                            <h3 class="text-lg font-bold text-blue-900">คะแนนเฉลี่ยความสุขรายข้อ</h3>
-                            <p class="text-xs text-gray-500">เรียงจากมากไปน้อย (เต็ม 5.00)</p>
-                        </div>
+                        <h3 class="text-lg font-bold text-blue-900">คะแนนเฉลี่ยรายด้าน (5 Dimensions)</h3>
                         <div class="text-right hidden sm:block">
                             <span class="text-xs bg-green-50 text-green-700 px-2 py-1 rounded border border-green-200">● สูง (>4.3)</span>
                             <span class="text-xs bg-red-50 text-red-700 px-2 py-1 rounded border border-red-200">● ต่ำ (<3.9)</span>
                         </div>
                     </div>
-                    <div class="chart-scroll-container" style="height: 800px;">
-                        <div style="position: relative; height: 1000px; width: 100%;">
-                            <canvas id="chartWB"></canvas>
+                    
+                    <!-- 5 Groups Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        
+                        <!-- Group 1: Work & Growth -->
+                        <div class="card p-4 shadow-sm hover:shadow-md transition-all">
+                            <div class="flex justify-between items-center mb-3 pb-2 border-b border-gray-100">
+                                <h4 class="font-bold text-gray-700"><i class="fas fa-briefcase text-blue-600 mr-2"></i>การงาน & การเติบโต</h4>
+                                <span class="text-xs font-bold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Avg: 4.16</span>
+                            </div>
+                            <div class="h-48"><canvas id="chartGroupWork"></canvas></div>
                         </div>
+
+                        <!-- Group 2: Health -->
+                        <div class="card p-4 shadow-sm hover:shadow-md transition-all">
+                            <div class="flex justify-between items-center mb-3 pb-2 border-b border-gray-100">
+                                <h4 class="font-bold text-gray-700"><i class="fas fa-heartbeat text-green-500 mr-2"></i>สุขภาพกาย</h4>
+                                <span class="text-xs font-bold bg-green-100 text-green-800 px-2 py-1 rounded-full">Avg: 4.31</span>
+                            </div>
+                            <div class="h-48"><canvas id="chartGroupHealth"></canvas></div>
+                        </div>
+
+                        <!-- Group 3: Social -->
+                        <div class="card p-4 shadow-sm hover:shadow-md transition-all">
+                            <div class="flex justify-between items-center mb-3 pb-2 border-b border-gray-100">
+                                <h4 class="font-bold text-gray-700"><i class="fas fa-users text-indigo-500 mr-2"></i>สังคม & ความสัมพันธ์</h4>
+                                <span class="text-xs font-bold bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">Avg: 4.32</span>
+                            </div>
+                            <div class="h-48"><canvas id="chartGroupSocial"></canvas></div>
+                        </div>
+
+                        <!-- Group 4: Money & Security -->
+                        <div class="card p-4 shadow-sm hover:shadow-md transition-all">
+                            <div class="flex justify-between items-center mb-3 pb-2 border-b border-gray-100">
+                                <h4 class="font-bold text-gray-700"><i class="fas fa-coins text-yellow-500 mr-2"></i>การเงิน & ความมั่นคง</h4>
+                                <span class="text-xs font-bold bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Avg: 4.03</span>
+                            </div>
+                            <div class="h-48"><canvas id="chartGroupMoney"></canvas></div>
+                        </div>
+
+                        <!-- Group 5: Mind & Emotion -->
+                        <div class="card p-4 shadow-sm hover:shadow-md transition-all">
+                            <div class="flex justify-between items-center mb-3 pb-2 border-b border-gray-100">
+                                <h4 class="font-bold text-gray-700"><i class="fas fa-smile text-pink-500 mr-2"></i>จิตใจ & อารมณ์</h4>
+                                <span class="text-xs font-bold bg-pink-100 text-pink-800 px-2 py-1 rounded-full">Avg: 4.09</span>
+                            </div>
+                            <div class="h-48"><canvas id="chartGroupMind"></canvas></div>
+                        </div>
+
                     </div>
                 </div>
 
-                <!-- Content: Ex-Canvas -->
+                <!-- CONTENT 2: EX-CANVAS (List Layout) -->
                 <div id="content-ex" class="p-6 hidden">
                     <div class="flex justify-between items-center mb-6">
                         <div>
@@ -235,15 +255,12 @@
             </div>
         </section>
 
-        <!-- =========================================
-             PART 3: DETAILED VOICE ANALYSIS
-             ========================================= -->
+        <!-- 3. DETAILED VOICE ANALYSIS -->
         <section>
             <div class="section-title">
                 <div class="section-marker bg-green-600"></div>
                 <h2>3. เจาะลึกเสียงสะท้อน (Detailed Voice Analysis)</h2>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Theme 1 -->
                 <div class="card border-t-4 border-blue-800 p-6">
@@ -260,7 +277,6 @@
                         "อยากให้มีการอบรมการนำ AI ไปใช้... และวางแผนเส้นทางความก้าวหน้าในอาชีพ (Career Path) ให้ชัดเจน"
                     </div>
                 </div>
-
                 <!-- Theme 2 -->
                 <div class="card border-t-4 border-green-600 p-6">
                     <h3 class="text-lg font-bold text-green-800 mb-4 flex items-center">
@@ -276,7 +292,6 @@
                         "สร้างพื้นที่และเวลาสำหรับการผ่อนคลาย... เพื่อลดความเครียดและภาวะหมดไฟ"
                     </div>
                 </div>
-
                 <!-- Theme 3 -->
                 <div class="card border-t-4 border-yellow-500 p-6">
                     <h3 class="text-lg font-bold text-yellow-700 mb-4 flex items-center">
@@ -292,7 +307,6 @@
                         "จัดให้มีการให้คำปรึกษาด้านการลงทุน... และการวางแผนรายได้หลังเกษียณ"
                     </div>
                 </div>
-
                 <!-- Theme 4 -->
                 <div class="card border-t-4 border-red-500 p-6">
                     <h3 class="text-lg font-bold text-red-700 mb-4 flex items-center">
@@ -347,7 +361,7 @@
         </section>
 
         <footer class="text-center text-gray-400 text-sm mt-12 border-t pt-6 pb-6">
-            <p>© 2025 Thailand Professional Qualification Institute (Public Organization).</p>
+            <p>© 2025 Thailand Professional Qualification Institute (Public Organization). Generated by Gemini.</p>
         </footer>
 
     </main>
@@ -355,41 +369,49 @@
     <script>
         Chart.register(ChartDataLabels);
 
-        // --- 1. DATASETS (Theme Colors Updated) ---
-        // Using TPQI Theme: Blue, Red, Gold, Grey
-        const tpqiColors = {
-            blue: '#1e3a8a',
-            lightBlue: '#60a5fa',
-            red: '#dc2626',
-            green: '#16a34a',
-            gold: '#d97706',
-            grey: '#9ca3af'
-        };
+        // --- 1. DATASETS (Re-Grouped for 5 Cards) ---
         
-        const wbDataRaw = [
-            { l: "เข้าถึงการรักษาและฟื้นฟูสุขภาพ", v: 4.55 },
-            { l: "ยอมรับความแตกต่างระหว่างบุคคล", v: 4.42 },
-            { l: "ตระหนักรู้อารมณ์ตนเอง", v: 4.42 },
-            { l: "จัดการการเงินได้ด้วยตนเอง", v: 4.36 },
-            { l: "มีมิตรภาพที่ดีในที่ทำงาน", v: 4.34 },
-            { l: "จัดการความขัดแย้งได้", v: 4.34 },
-            { l: "มีกำลังแรงกายทำสิ่งต่างๆ", v: 4.34 },
-            { l: "รู้วิธีจัดการสุขภาพตนเอง", v: 4.28 },
-            { l: "สุขภาวะทางปัญญา", v: 4.20 },
-            { l: "ความสามารถเป็นที่ต้องการ", v: 4.17 },
-            { l: "มีโอกาสพัฒนาตนเอง", v: 4.17 },
-            { l: "เป็นที่ยอมรับในสังคม", v: 4.17 },
-            { l: "พึงพอใจในงานที่ทำ", v: 4.15 },
-            { l: "ความผูกพันองค์กร", v: 4.15 },
-            { l: "รับมือวิกฤติได้ดี", v: 4.10 },
-            { l: "ฟื้นตัวจากอ่อนเพลียได้ดี", v: 4.06 },
-            { l: "ความมั่นคงในชีวิต", v: 4.05 },
-            { l: "ไม่ตื่นตระหนก/ใจเย็น", v: 4.00 },
-            { l: "มีเงินเก็บสำหรับอนาคต", v: 3.90 },
-            { l: "บรรยากาศไม่ตึงเครียด", v: 3.85 },
-            { l: "บรรลุเป้าหมายการเงิน", v: 3.81 }
+        // Group 1: Work & Growth (การงานและการเติบโต) - Blue
+        const grpWork = [
+            { l: "1. พึงพอใจในงานที่ทำ", v: 4.15 },
+            { l: "3. ความสามารถเป็นที่ต้องการ", v: 4.17 },
+            { l: "4. มีโอกาสพัฒนาตนเอง", v: 4.17 },
+            { l: "19. ความผูกพันองค์กร", v: 4.15 }
         ];
 
+        // Group 2: Health (สุขภาพกาย) - Green
+        const grpHealth = [
+            { l: "9. มีกำลังแรงกายทำสิ่งต่างๆ", v: 4.34 },
+            { l: "10. รู้วิธีจัดการสุขภาพตนเอง", v: 4.28 },
+            { l: "11. ฟื้นตัวจากอ่อนเพลียได้ดี", v: 4.06 },
+            { l: "12. เข้าถึงการรักษาและฟื้นฟูสุขภาพ", v: 4.55 }
+        ];
+
+        // Group 3: Social (สังคมและความสัมพันธ์) - Indigo
+        const grpSocial = [
+            { l: "5. มีมิตรภาพที่ดีในที่ทำงาน", v: 4.34 },
+            { l: "6. ยอมรับความแตกต่าง", v: 4.42 },
+            { l: "7. จัดการความขัดแย้งได้", v: 4.34 },
+            { l: "8. เป็นที่ยอมรับในสังคม", v: 4.17 }
+        ];
+
+        // Group 4: Money & Security (การเงินและความมั่นคง) - Yellow
+        const grpMoney = [
+            { l: "13. จัดการการเงินได้ด้วยตนเอง", v: 4.36 },
+            { l: "14. บรรลุเป้าหมายการเงิน", v: 3.81 },
+            { l: "15. มีเงินเก็บสำหรับอนาคต", v: 3.90 },
+            { l: "17. ความมั่นคงในชีวิต", v: 4.05 }
+        ];
+
+        // Group 5: Mind & Emotion (จิตใจและอารมณ์) - Pink
+        const grpMind = [
+            { l: "2. บรรยากาศไม่ตึงเครียด", v: 3.85 },
+            { l: "16. รับมือวิกฤติได้ดี", v: 4.10 },
+            { l: "18. ตระหนักรู้อารมณ์ตนเอง", v: 4.42 },
+            { l: "20. ไม่ตื่นตระหนก/ใจเย็น", v: 4.00 }
+        ];
+
+        // Ex-Canvas Data (38 Items) - Keep Sorted List
         const exDataRaw = [
             { l: "ได้รับสวัสดิการที่ดี", v: 92.45 },
             { l: "ภาระหน้าที่ชัดเจน", v: 88.68 },
@@ -452,7 +474,7 @@
             plugins: {
                 legend: { display: false },
                 datalabels: {
-                    color: tpqiColors.blue,
+                    color: '#334155',
                     anchor: 'end',
                     align: 'right',
                     offset: 4,
@@ -460,49 +482,28 @@
                     font: { weight: 'bold', size: 11 }
                 }
             },
-            layout: {
-                padding: {
-                    right: 80, left: 0
-                }
-            },
+            layout: { padding: { right: 60, left: 0 } },
             scales: {
-                x: { grid: { color: '#f1f5f9' } },
-                y: { 
-                    grid: { display: false },
-                    ticks: { autoSkip: false, font: { size: 12, family: 'Sarabun' }, color: '#1e293b' }
-                }
+                x: { min: 3.0, max: 5.0, grid: { color: '#f1f5f9' }, ticks:{display:false} }, // Clean X
+                y: { grid: { display: false }, ticks: { autoSkip: false, font: { size: 11, family: 'Sarabun' }, color: '#334155' } }
             }
         };
 
         // --- 3. INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
             
-            // 1. Well-Being Chart
-            const ctxWB = document.getElementById('chartWB').getContext('2d');
-            const optionsWB = JSON.parse(JSON.stringify(barOptions));
-            optionsWB.scales.x.min = 3.0;
-            optionsWB.scales.x.max = 5.0;
-            optionsWB.plugins.datalabels.formatter = v => v.toFixed(2);
-
-            new Chart(ctxWB, {
-                type: 'bar',
-                data: {
-                    labels: wbDataRaw.map(d => d.l),
-                    datasets: [{
-                        data: wbDataRaw.map(d => d.v),
-                        // Theme: High=Green, Med=Blue, Low=Red
-                        backgroundColor: wbDataRaw.map(d => d.v >= 4.3 ? tpqiColors.green : (d.v <= 3.9 ? tpqiColors.red : tpqiColors.blue)),
-                        borderRadius: 4,
-                        barPercentage: 0.65
-                    }]
-                },
-                options: optionsWB
-            });
+            // --- Render 5 Group Charts ---
+            renderGroupChart('chartGroupWork', grpWork, '#3b82f6');   // Blue
+            renderGroupChart('chartGroupHealth', grpHealth, '#22c55e'); // Green
+            renderGroupChart('chartGroupSocial', grpSocial, '#6366f1'); // Indigo
+            renderGroupChart('chartGroupMoney', grpMoney, '#eab308');   // Yellow/Gold
+            renderGroupChart('chartGroupMind', grpMind, '#ec4899');     // Pink
 
             // 2. Ex-Canvas Chart
             const ctxEx = document.getElementById('chartEx').getContext('2d');
             const optionsEx = JSON.parse(JSON.stringify(barOptions));
             optionsEx.scales.x.max = 100;
+            optionsEx.scales.x.min = 0;
             optionsEx.plugins.datalabels.formatter = v => v + '%';
 
             new Chart(ctxEx, {
@@ -511,8 +512,7 @@
                     labels: exDataRaw.map(d => d.l),
                     datasets: [{
                         data: exDataRaw.map(d => d.v),
-                        // Theme: High=Green, Low=Red, Med=Gold
-                        backgroundColor: exDataRaw.map(d => d.v > 80 ? tpqiColors.green : (d.v < 40 ? tpqiColors.red : tpqiColors.gold)),
+                        backgroundColor: exDataRaw.map(d => d.v > 80 ? '#10b981' : (d.v < 40 ? '#ef4444' : '#f59e0b')),
                         borderRadius: 4,
                         barPercentage: 0.7
                     }]
@@ -521,43 +521,35 @@
             });
 
             // 3. Demographics (Clean Look: Percent Only, Tooltip Count)
-            
             const tooltipCallback = {
                 callbacks: {
                     label: function(context) {
                         let label = context.label || '';
                         if (label) label += ': ';
-                        let value = context.raw;
-                        return label + value + ' คน';
+                        return label + context.raw + ' คน';
                     }
                 }
             };
-
             const percentFormatter = (value, ctx) => {
                 let sum = 0;
-                let dataArr = ctx.chart.data.datasets[0].data;
-                dataArr.map(data => { sum += data; });
-                let percentage = (value * 100 / sum).toFixed(1) + "%";
-                return percentage; 
+                ctx.chart.data.datasets[0].data.map(data => { sum += data; });
+                return (value * 100 / sum).toFixed(1) + "%"; 
             };
 
-            // Theme Colors for Donuts
-            const ageColors = ['#93c5fd', '#2563eb', '#1e3a8a']; // Light Blue to Dark Blue
-            const tenureColors = ['#a5b4fc', '#6366f1', '#4338ca']; // Indigo shades
-            const genderColors = ['#fca5a5', '#60a5fa', '#d8b4fe', '#d1d5db']; // Red, Blue, Purple, Grey
+            const ageColors = ['#93c5fd', '#2563eb', '#1e3a8a']; 
+            const tenureColors = ['#a5b4fc', '#6366f1', '#4338ca']; 
+            const genderColors = ['#fca5a5', '#60a5fa', '#d8b4fe', '#d1d5db']; 
 
             renderDonut('chartAge', ['20-28 ปี', '29-43 ปี', '44-58 ปี'], [1, 32, 20], ageColors, percentFormatter, tooltipCallback);
             renderDonut('chartTenure', ['6 เดือน - 2 ปี', '2 - 10 ปี', '10 - 20 ปี'], [5, 34, 14], tenureColors, percentFormatter, tooltipCallback);
             renderDonut('chartGender', ['หญิง', 'ชาย', 'LGBTQ+', 'N/A'], [30, 18, 1, 4], genderColors, percentFormatter, tooltipCallback);
             
-            // Dept Chart (Pie Chart) - Theme Colors
             new Chart(document.getElementById('chartDept').getContext('2d'), {
                 type: 'pie',
                 data: {
                     labels: deptData.map(d => d.name),
                     datasets: [{ 
                         data: deptData.map(d => d.count), 
-                        // Professional Corporate Palette
                         backgroundColor: [
                             '#1e3a8a', '#1d4ed8', '#2563eb', '#3b82f6', '#60a5fa',
                             '#93c5fd', '#bfdbfe', '#dbeafe', '#eff6ff'
@@ -583,6 +575,28 @@
             });
         });
 
+        // Helper: Render Small Group Bar Chart
+        function renderGroupChart(id, data, color) {
+            const ctx = document.getElementById(id).getContext('2d');
+            const opts = JSON.parse(JSON.stringify(barOptions));
+            opts.plugins.datalabels.color = color; // Match label color to bar
+            opts.plugins.datalabels.formatter = v => v.toFixed(2);
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(d => d.l.substring(0, 25) + (d.l.length>25?'...':'')), // Truncate labels slightly
+                    datasets: [{
+                        data: data.map(d => d.v),
+                        backgroundColor: color,
+                        borderRadius: 4,
+                        barPercentage: 0.6
+                    }]
+                },
+                options: opts
+            });
+        }
+
         function renderDonut(id, labels, data, colors, formatter, tooltipConfig) {
             new Chart(document.getElementById(id).getContext('2d'), {
                 type: 'doughnut',
@@ -592,11 +606,7 @@
                     maintainAspectRatio: false,
                     plugins: { 
                         legend: { position: 'right', labels:{boxWidth:10, font:{size:11, family: 'Sarabun'}} }, 
-                        datalabels: { 
-                            color: 'white', 
-                            font:{weight:'bold', size: 10}, 
-                            formatter: formatter 
-                        },
+                        datalabels: { color: 'white', font:{weight:'bold', size: 10}, formatter: formatter },
                         tooltip: tooltipConfig.callbacks ? { callbacks: tooltipConfig.callbacks } : {}
                     }, 
                     cutout: '65%' 
